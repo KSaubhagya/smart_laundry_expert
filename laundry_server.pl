@@ -10,6 +10,9 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/js_write)).
 
+% Set encoding for proper emoji display
+:- set_prolog_flag(encoding, utf8).
+
 % Load your knowledge base
 :- consult('laundry_expert.pl').
 
@@ -34,10 +37,11 @@ server(Port) :-
 home_page(_Request) :-
     reply_html_page(
         [title('Smart Laundry Expert Pro'),
+         meta([charset('UTF-8')]),
          link([rel(stylesheet), href('/static/style.css')])],
         [ 
           div(class(header), [
-              h1('🧺 SMART LAUNDRY EXPERT PRO'),
+              h1([\['&#x1F9FA;'], ' SMART LAUNDRY EXPERT PRO']),
               p('Your AI-powered laundry care advisor')
           ]),
           
@@ -70,11 +74,11 @@ wizard_container -->
         % Navigation Buttons
         div(class(wizard_navigation), [
             button([id(prev_btn), onclick('prevStep()'), class(btn_nav), style('display:none')], 
-                   '← Previous'),
+                   [\['&#x2190;'], ' Previous']),
             button([id(next_btn), onclick('nextStep()'), class(btn_nav)], 
-                   'Next →'),
+                   ['Next ', \['&#x2192;']]),
             button([id(submit_btn), onclick('submitForm()'), class(btn_submit), style('display:none')], 
-                   '🔍 Get Recommendation')
+                   [\['&#x1F50D;'], ' Get Recommendation'])
         ])
     ])).
 
@@ -90,7 +94,7 @@ const answers = {};
 const questions = [
     {
         id: "fabric",
-        emoji: "👕",
+        emoji: "&#x1F455;",
         title: "What type of fabric are you washing?",
         options: [
             {value: "cotton", label: "Cotton", desc: "T-shirts, jeans, bedsheets"},
@@ -101,7 +105,7 @@ const questions = [
     },
     {
         id: "dirt",
-        emoji: "💧",
+        emoji: "&#x1F4A7;",
         title: "How dirty is the laundry?",
         options: [
             {value: "low", label: "Lightly Soiled", desc: "Worn once, freshening up"},
@@ -111,7 +115,7 @@ const questions = [
     },
     {
         id: "color",
-        emoji: "🎨",
+        emoji: "&#x1F3A8;",
         title: "What color type is your laundry?",
         options: [
             {value: "white", label: "White", desc: "White clothes only"},
@@ -121,7 +125,7 @@ const questions = [
     },
     {
         id: "load",
-        emoji: "📦",
+        emoji: "&#x1F4E6;",
         title: "How much laundry do you have?",
         options: [
             {value: "small", label: "Small Load", desc: "Few items, 1-2 kg"},
@@ -131,7 +135,7 @@ const questions = [
     },
     {
         id: "stains",
-        emoji: "🔴",
+        emoji: "&#x1F534;",
         title: "Are there any visible stains?",
         options: [
             {value: "no", label: "No Stains", desc: "Clean or lightly worn"},
@@ -140,7 +144,7 @@ const questions = [
     },
     {
         id: "weather",
-        emoji: "☀️",
+        emoji: "&#x2600;",
         title: "What\'s the weather like today?",
         options: [
             {value: "dry", label: "Dry & Sunny", desc: "Good for outdoor drying"},
@@ -149,7 +153,7 @@ const questions = [
     },
     {
         id: "urgency",
-        emoji: "⏰",
+        emoji: "&#x23F0;",
         title: "How urgent is this laundry?",
         options: [
             {value: "low", label: "Not Urgent", desc: "Can wait, normal cycle"},
@@ -158,7 +162,7 @@ const questions = [
     },
     {
         id: "water_hardness",
-        emoji: "💎",
+        emoji: "&#x1F4A7;",
         title: "What\'s your water hardness?",
         options: [
             {value: "soft", label: "Soft Water", desc: "Easy to lather, no mineral buildup"},
@@ -244,7 +248,7 @@ function prevStep() {
 
 function submitForm() {
     document.getElementById("results").innerHTML = 
-        \'<div class="loading">🔄 Analyzing your laundry... Please wait.</div>\';
+        \'<div class="loading"> Analyzing your laundry... Please wait.</div>\';
     
     const params = new URLSearchParams(answers);
     const url = `/analyze?${params.toString()}`;
@@ -261,7 +265,7 @@ function submitForm() {
         .catch(error => {
             console.error("Error:", error);
             document.getElementById("results").innerHTML = 
-                \'<div class="error">❌ Error getting recommendation. Please try again.</div>\';
+                \'<div class="error">Error getting recommendation. Please try again.</div>\';
         });
 }
 
@@ -313,7 +317,7 @@ handle_analysis(Request) :-
     cleanup_facts,
     
     reply_html_page(
-        [],
+        [meta([charset('UTF-8')])],
         [ \display_results(Mode, Temp, Det, DryMethod, Notes, 
                           Fabric, Dirt, Color, Load, Stains, 
                           Weather, Urgency, WaterHardness) ]
@@ -327,10 +331,10 @@ display_results(Mode, Temp, Det, DryMethod, Notes,
                 Weather, Urgency, WaterHardness) -->
     html([
         div(class(results_container), [
-            h2(class(results_title), '✨ Your Personalized Laundry Recommendation'),
+            h2(class(results_title), [\['&#x2728;'], ' Your Personalized Laundry Recommendation']),
             
             div(class(input_summary), [
-                h3('📋 Input Summary'),
+                h3([\['&#x1F4CB;'], ' Input Summary']),
                 div(class(summary_grid), [
                     div(class(summary_item), [
                         span(class(label), 'Fabric:'), 
@@ -369,19 +373,19 @@ display_results(Mode, Temp, Det, DryMethod, Notes,
             
             div(class(recommendations), [
                 div(class(rec_card), [
-                    h4('🔄 Wash Mode'),
+                    h4([\['&#x1F504;'], 'Wash Mode']),
                     p(class(rec_value), Mode)
                 ]),
                 div(class(rec_card), [
-                    h4('🌡️ Temperature'),
+                    h4([\['&#x1F321;'], 'Temperature']),
                     p(class(rec_value), Temp)
                 ]),
                 div(class(rec_card), [
-                    h4('🧴 Detergent'),
+                    h4([\['&#x1F9F4;'], 'Detergent']),
                     p(class(rec_value), Det)
                 ]),
                 div(class(rec_card), [
-                    h4('🌬️ Drying Method'),
+                    h4([\['&#x1F32C;'], 'Drying Method']),
                     p(class(rec_value), DryMethod)
                 ])
             ]),
@@ -390,7 +394,7 @@ display_results(Mode, Temp, Det, DryMethod, Notes,
             
             div(class(action_buttons), [
                 button([onclick('restartWizard()'), class(btn_new)], 
-                       '🔄 New Analysis')
+                       'New Analysis')
             ])
         ])
     ]).
@@ -399,7 +403,7 @@ display_notes([]) --> html([]).
 display_notes(Notes) -->
     { Notes \= [] },
     html(div(class(additional_notes), [
-        h3('💡 Additional Recommendations'),
+        h3([\['&#x1F4A1;'], 'Additional Recommendations']),
         ul(class(notes_list), \notes_items(Notes))
     ])).
 
