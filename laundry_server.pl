@@ -1,6 +1,6 @@
 % laundry_server.pl
 % -----------------------------------------------
-% SMART LAUNDRY EXPERT PRO — Web Server
+% SMART LAUNDRY EXPERT PRO — Web Server (FIXED)
 % -----------------------------------------------
 
 :- use_module(library(http/thread_httpd)).
@@ -29,12 +29,12 @@ server(Port) :-
     format('=================================================~n~n', []).
 
 % -----------------------------------------------
-% HOME PAGE WITH INTERFACE
+% HOME PAGE WITH INTERFACE (FIXED)
 % -----------------------------------------------
 home_page(_Request) :-
     reply_html_page(
-        [title('Smart Laundry Expert Pro'), 
-         \html_requires(css('static/style.css'))],
+        [title('Smart Laundry Expert Pro'),
+         link([rel(stylesheet), href('/static/style.css')])],
         [ 
           div(class(header), [
               h1('🧺 SMART LAUNDRY EXPERT PRO'),
@@ -143,10 +143,9 @@ input_form -->
 % JAVASCRIPT CODE
 % -----------------------------------------------
 javascript_code -->
-    html(script(type('text/javascript'), \[
+    html(script(type('text/javascript'), 
 '
 function getRecommendation() {
-    // Get all form values
     const fabric = document.getElementById("fabric").value;
     const dirt = document.getElementById("dirt").value;
     const color = document.getElementById("color").value;
@@ -156,19 +155,15 @@ function getRecommendation() {
     const urgency = document.getElementById("urgency").value;
     const water_hardness = document.getElementById("water_hardness").value;
     
-    // Show loading indicator
     document.getElementById("results").innerHTML = 
         \'<div class="loading">🔄 Analyzing your laundry... Please wait.</div>\';
     
-    // Build query URL
     const url = `/analyze?fabric=${fabric}&dirt=${dirt}&color=${color}&load=${load}&stains=${stains}&weather=${weather}&urgency=${urgency}&water_hardness=${water_hardness}`;
     
-    // Fetch recommendation
     fetch(url)
         .then(response => response.text())
         .then(data => {
             document.getElementById("results").innerHTML = data;
-            // Smooth scroll to results
             document.getElementById("results").scrollIntoView({ 
                 behavior: "smooth", 
                 block: "start" 
@@ -181,7 +176,7 @@ function getRecommendation() {
         });
 }
 '
-    ])).
+    )).
 
 % -----------------------------------------------
 % HANDLE ANALYSIS REQUEST
