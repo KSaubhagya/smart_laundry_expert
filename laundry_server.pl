@@ -31,9 +31,6 @@ server(Port) :-
     format('   http://localhost:~w~n', [Port]),
     format('=================================================~n~n', []).
 
-% -----------------------------------------------
-% HOME PAGE WITH WIZARD INTERFACE
-% -----------------------------------------------
 home_page(_Request) :-
     reply_html_page(
         [title('Smart Laundry Expert Pro'),
@@ -54,9 +51,6 @@ home_page(_Request) :-
         ]
     ).
 
-% -----------------------------------------------
-% WIZARD CONTAINER HTML
-% -----------------------------------------------
 wizard_container -->
     html(div(class(wizard_container), [
         % Progress Bar
@@ -82,9 +76,6 @@ wizard_container -->
         ])
     ])).
 
-% -----------------------------------------------
-% JAVASCRIPT CODE FOR WIZARD
-% -----------------------------------------------
 javascript_code -->
     html(script(type('text/javascript'), [
 '
@@ -283,9 +274,6 @@ window.onload = function() {
 '
     ])).
 
-% -----------------------------------------------
-% HANDLE ANALYSIS REQUEST
-% -----------------------------------------------
 handle_analysis(Request) :-
     http_parameters(Request, [
         fabric(Fabric, [atom]),
@@ -323,9 +311,7 @@ handle_analysis(Request) :-
                           Weather, Urgency, WaterHardness) ]
     ).
 
-% -----------------------------------------------
-% DISPLAY RESULTS HTML
-% -----------------------------------------------
+
 display_results(Mode, Temp, Det, DryMethod, Notes, 
                 Fabric, Dirt, Color, Load, Stains, 
                 Weather, Urgency, WaterHardness) -->
