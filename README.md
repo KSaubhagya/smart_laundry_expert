@@ -7,7 +7,7 @@ This project illustrates key Artificial Intelligence concepts such as:
 - Knowledge representation  
 - Logical inference using **Prolog*
 
---
+---
 
 ## ✨ Features
 
@@ -26,3 +26,22 @@ This project illustrates key Artificial Intelligence concepts such as:
 - **Concepts:** Facts, Rules, Logical Inference  
 
 ---
+## 🚀 Getting Started
+
+### Prerequisites
+```bash
+- Install **[SWI-Prolog](https://www.swi-prolog.org/)** on your system  
+```
+
+### Installation
+
+```bash
+git clone https://github.com/KSaubhagya/smart_laundry_expert.git
+cd smart_laundry_expert
+```
+
+### Run the System
+```bash
+swipl laundry_server.pl
+server at http://localhost:8080/
+```
