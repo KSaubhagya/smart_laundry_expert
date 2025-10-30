@@ -26,6 +26,20 @@ This project illustrates key Artificial Intelligence concepts such as:
 - **Concepts:** Facts, Rules, Logical Inference  
 
 ---
+
+## ✨ User Inputs for Recommendations
+
+- Type of fabric 
+- Level of dirtiness  
+- Color category of fabric
+- Load size 
+- Whether stains are present
+- Current weather conditions
+- Urgency of the laundry
+- Type of water (soft/hard)
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
