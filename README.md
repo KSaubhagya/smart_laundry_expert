@@ -1,4 +1,4 @@
-# smart_laundry_expert
+# 🧺 smart_laundry_expert
 
 Expert system for domestic laundry care management with dynamically capturing user inputs asserted as facts. This system generates recommendations on wash mode, detergent type, drying method and temparature along with additional recommandations, which are inferred from rules based on conditional logic. The conceptual basis includes factors such as fabric care level, washing intensity and other factors.
 
@@ -38,6 +38,17 @@ This project illustrates key Artificial Intelligence concepts such as:
 - Urgency of the laundry
 - Type of water (soft/hard)
 
+---
+
+## ✨ Recommendations Generated
+
+- Washing Intensity 
+- Temperature Selection  
+- Detergent Recommendation
+- Drying Method 
+- Wash Mode
+- Additional Recommendations
+  
 ---
 
 ## 🚀 Getting Started
