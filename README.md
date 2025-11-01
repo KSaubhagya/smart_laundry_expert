@@ -11,7 +11,7 @@ This project illustrates key Artificial Intelligence concepts such as:
 
 ## ✨ Features
 
-- Knowledge base of fabrics, stains, and wash conditions  
+- Knowledge base of fabrics, stains, weather and wash conditions  
 - Dynamic rules for fabric care and detergent selection  
 - Query-based expert recommendations  
 - Easily extensible rule system  
